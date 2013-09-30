@@ -1,0 +1,21 @@
+{
+    "name": "ystools/erlang-port-bundle",
+    "description": "Symfony 2 Erlang Port",
+    "keywords": ["erlang","port"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yevhen Shyshkin",
+            "email": "maniac.zhenya@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/symfony": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "YsTools\\ErlangPortBundle": "" }
+    },
+    "target-dir": "YsTools/ErlangPortBundle"
+}
