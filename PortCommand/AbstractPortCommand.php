@@ -1,6 +1,6 @@
 <?php
 
-namespace YsTools\ErlangPortBundle\Port;
+namespace YsTools\ErlangPortBundle\PortCommand;
 
 abstract class AbstractPortCommand implements PortCommandInterface
 {

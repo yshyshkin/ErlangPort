@@ -1,0 +1,6 @@
+parameters:
+    ys_tools.erlang_port.port_command.registry.class: YsTools\ErlangPortBundle\PortCommand\PortCommandRegistry
+
+services:
+    ys_tools.erlang_port.port_command.registry:
+        class: %ys_tools.erlang_port.port_command.registry.class%

@@ -1,16 +1,9 @@
 <?php
 
-namespace YsTools\ErlangPortBundle\Port;
+namespace YsTools\ErlangPortBundle\PortCommand;
 
 interface PortCommandInterface
 {
-    /**
-     * Unique command name
-     *
-     * @return string
-     */
-    public function getName();
-
     /**
      * Execute Erlang port command
      *

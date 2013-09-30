@@ -2,7 +2,7 @@
 -module(symfony_port).
 
 % exported functions
--export([open/0, close/1, execute_command/3]).
+-export([open/0, close/1, execute_command/3, execute_command/2]).
 -export([init/1]). % internal function, should not be executed externally
 
 % configuration and interfaces
@@ -21,21 +21,41 @@ close(Process) ->
 
 % execute command on port
 % @param process Process
-% @param string Command
-% @param string Parameters
+% @param string Name
+% @param list Parameters
 % @return string
 % @exit port_not_responding
-execute_command(Process, Command, Parameters) ->
-    PortMessage = io_lib:format("~s ~s~n", [Command, Parameters]),
+% @exit invalid_response
+% @exit ErrorString
+execute_command(Process, Name, Parameters) ->
+    PortMessage = io_lib:format("~s ~s~n", [Name, string:join(Parameters, " ")]),
     Process ! #call{process=self(), message=PortMessage},
     receive
         {Process, Response} ->
-            Response
+            IsOkResponse = string:str(Response, ?RESPONSE_PREFIX_OK) == 1,
+            IsErrorResponse = string:str(Response, ?RESPONSE_PREFIX_ERROR) == 1,
+            if
+                IsOkResponse ->
+                    ResponseString = string:substr(Response, string:len(?RESPONSE_PREFIX_OK) + 1),
+                    ResponseString;
+                IsErrorResponse ->
+                    ErrorString = string:substr(Response, string:len(?RESPONSE_PREFIX_ERROR) + 1),
+                    exit(ErrorString);
+                true ->
+                    exit(invalid_response)
+            end
     after ?PORT_TIMEOUT ->
         exit(port_not_responding)
     end.
 
-% init port with specified command
+% shorter form of execute_command/3
+% @param process Process
+% @param string Name
+% @param list Parameters
+execute_command(Process, Name) ->
+    execute_command(Process, Name, []).
+
+% init port with specified CLI command
 % @param string PortCommand
 % @return process
 init(PortCommand) ->
