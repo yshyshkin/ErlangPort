@@ -1,5 +1,5 @@
 Symfony 2 Erlang Port Bundle
-============================
+----------------------------
 
 This bundle provides functionality to allow interaction between Erlang programs and Symfony application
 using Erlang ports. Bundle has library of functions to work with port from the Erlang side and CLI command
@@ -10,14 +10,12 @@ and port command registry to work with registered port commands from the Symfony
 * [Symfony side](#symfony-side)
 * [Example of usage](#example-of-usage)
 
-Installation
-------------
+### Installation
 
 
-Erlang side
------------
+### Erlang side
 
-### Library
+#### Library
 
 There is the library [symfony\_port.erl](./erl/symfony_port.erl) that provides list of functions that should be used
 to work with Symfony port:
@@ -30,7 +28,7 @@ with list of parameters _Parameters_ (parameters are optional), returns string w
 Be default all Erlang files are available in directory [erl](./erl), but after installation all required files
 should be copied to other location where they be compiled and used.
 
-### Configuration
+#### Configuration
 
 Configuration of port is stored in file [symfony\_port\_config.hrl](./erl/symfony_port_config.hrl)
 that contains following parameters (macroses):
@@ -48,8 +46,8 @@ default value is `ok:`;
 * **RESPONSE\_PREFIX\_ERROR** - response prefix that is used to identifier response as failed,
 default value is `error:`;
 
-Symfony side
-------------
+
+#### Symfony side
 
 Bundle provides [PortCommandInterface](./PortCommand/PortCommandInterface.php) and
 [AbstractPortCommand](./PortCommand/AbstractPortCommand.php) that should be used to implement port commands.
@@ -60,13 +58,12 @@ Main entry point for Erlang is a console command `ystools:erlang-port` that shou
 on the Erlang side. This command also can be used to debug existing commands - all you need is to start it
 and enter command name and command parameters.
 
-Example of usage
-----------------
+### Example of usage
 
 Let's assume that we need to implement port command that will calculate SHA-1 hash of specified string.
 We need to do following things.
 
-### 1. Create port command class
+#### 1. Create port command class
 
 Port command service must implement PortCommandInterface. Let's use existing AbstractPortCommand to implement command:
 
@@ -86,7 +83,7 @@ class Sha1Calculator extends AbstractPortCommand
 }
 ```
 
-### 2. Register port command as DI service with tag
+#### 2. Register port command as DI service with tag
 
 Now we need to tell that this class should be used as Erlang port command. To do that we need to register it
 as a service with specific tag:
@@ -114,7 +111,7 @@ ok:exit
 
 As you can see, command returns result with a response status prefix. Command `exit` is used to stop port process.
 
-### 3. Compile Erlang libraries
+#### 3. Compile Erlang libraries
 
 To work with Erlang code we need to compile existing library. Also bundle provides library
 [symfony\_port\_demo.erl](./erl/symfony_port_demo.erl) that allow us to test command without additional Erlang code.
@@ -131,7 +128,7 @@ Eshell V5.10.3  (abort with ^G)
 
 After compilation for each library there must be appeared file with extension *.beam - these are compiled libraries.
 
-### 4. Start port and execute command
+#### 4. Start port and execute command
 
 Library `symfony_port_demo` provides function **execute(Name, Parameters)** that automatically opens port,
 executes a command _Name_ with _Parameters_ and closes port. Let's do it:
