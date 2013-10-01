@@ -1,7 +1,7 @@
 {
     "name": "ystools/erlang-port-bundle",
-    "description": "Symfony 2 Erlang Port",
-    "keywords": ["erlang","port"],
+    "description": "Symfony 2 Erlang Port Bundle",
+    "keywords": ["erlang", "port"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [

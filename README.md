@@ -10,7 +10,11 @@ and port command registry to work with registered port commands from the Symfony
 * [Symfony side](#symfony-side)
 * [Example of usage](#example-of-usage)
 
+
 ### Installation
+
+To install bundle you need to add string `"ystools/erlang-port-bundle": "dev-master"` to require section
+of Symfony's main composer.json and run `composer update`.
 
 
 ### Erlang side
@@ -47,7 +51,7 @@ default value is `ok:`;
 default value is `error:`;
 
 
-#### Symfony side
+### Symfony side
 
 Bundle provides [PortCommandInterface](./PortCommand/PortCommandInterface.php) and
 [AbstractPortCommand](./PortCommand/AbstractPortCommand.php) that should be used to implement port commands.
