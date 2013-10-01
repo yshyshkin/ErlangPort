@@ -65,7 +65,7 @@ and enter command name and command parameters.
 ### Example of usage
 
 Let's assume that we need to implement port command that will calculate SHA-1 hash of specified string.
-We need to do following things.
+We need to follow a few steps.
 
 #### 1. Create port command class
 
