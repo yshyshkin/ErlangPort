@@ -29,8 +29,8 @@ to work with Symfony port:
 with list of parameters _Parameters_ (parameters are optional), returns string with command execution result;
 * **close(Process)** - stop and close port identified by process _Process_, send "exit" command to port.
 
-Be default all Erlang files are available in directory [erl](./erl), but after installation all required files
-should be copied to other location where they be compiled and used.
+By default all Erlang files are available in directory [erl](./erl), but after installation all required files
+should be copied to other location where they should be compiled and used.
 
 #### Configuration
 
@@ -55,7 +55,7 @@ default value is `error:`;
 
 Bundle provides [PortCommandInterface](./PortCommand/PortCommandInterface.php) and
 [AbstractPortCommand](./PortCommand/AbstractPortCommand.php) that should be used to implement port commands.
-Each port command must be registered in DI contained as a service with tag `ys_tools.erlang_port.port_command` -
+Each port command must be registered in DI container as a service with tag `ys_tools.erlang_port.port_command` -
 tag alias is a command name.
 
 Main entry point for Erlang is a console command `ystools:erlang-port` that should be specified as CLI command
@@ -135,7 +135,7 @@ After compilation for each library there must be appeared file with extension *.
 #### 4. Start port and execute command
 
 Library `symfony_port_demo` provides function **execute(Name, Parameters)** that automatically opens port,
-executes a command _Name_ with _Parameters_ and closes port. Let's do it:
+executes a command _Name_ with _Parameters_, prints result and closes port. Let's do it:
 
 ```
 login@host:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
