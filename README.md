@@ -60,7 +60,7 @@ tag alias is a command name.
 
 Main entry point for Erlang is a console command `ystools:erlang-port` that should be specified as CLI command
 on the Erlang side. This command also can be used to debug existing commands - all you need is to start it
-and enter command name and command parameters.
+and enter command name and parameters.
 
 ### Example of usage
 
@@ -69,7 +69,8 @@ We need to follow a few steps.
 
 #### 1. Create port command class
 
-Port command service must implement PortCommandInterface. Let's use existing AbstractPortCommand to implement command:
+Port command class must implement PortCommandInterface. Let's use existing AbstractPortCommand
+that already implements this interface to create a command class:
 
 ```php
 use YsTools\ErlangPortBundle\PortCommand\AbstractPortCommand;
@@ -86,6 +87,9 @@ class Sha1Calculator extends AbstractPortCommand
     }
 }
 ```
+
+_ProcessCommand_ is a default function name used to execute command. If you want to change it you should to
+override constant CALLBACK_METHOD.
 
 #### 2. Register port command as DI service with tag
 
@@ -119,7 +123,7 @@ As you can see, command returns result with a response status prefix. Command `e
 
 To work with Erlang code we need to compile existing library. Also bundle provides library
 [symfony\_port\_demo.erl](./erl/symfony_port_demo.erl) that allow us to test command without additional Erlang code.
-Lets compile libraries `symfony_port` and `symfony_port_demo`:
+Let's compile libraries `symfony_port` and `symfony_port_demo`:
 
 ```
 login@host:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
@@ -144,4 +148,5 @@ Eshell V5.10.3  (abort with ^G)
 b1b3773a05c0ed0176787a4f1574ff0075f7521e
 stop
 ```
+
 As you can see, port command was successfully executed and it returned valid result.
