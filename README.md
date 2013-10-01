@@ -138,7 +138,7 @@ Library `symfony_port_demo` provides function **execute(Name, Parameters)** that
 executes a command _Name_ with _Parameters_ and closes port. Let's do it:
 
 ```
-maniac@here:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
+login@host:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
 Eshell V5.10.3  (abort with ^G)
 1> symfony_port_demo:execute("calculate_sha1", ["qwerty"]).
 b1b3773a05c0ed0176787a4f1574ff0075f7521e
