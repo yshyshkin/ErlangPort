@@ -17,12 +17,18 @@ class ConsolePortCommand extends ContainerAwareCommand
     const RESPONSE_PREFIX_OK = 'ok:';
     const RESPONSE_PREFIX_ERROR = 'error:';
 
+    const INIT_COMMAND = 'init';
     const EXIT_COMMAND = 'exit';
 
     /**
      * @var PortCommandRegistry
      */
     protected $portCommandRegistry;
+
+    /**
+     * @var array
+     */
+    protected $serviceCommands = array(self::INIT_COMMAND, self::EXIT_COMMAND);
 
     protected function configure()
     {
@@ -41,12 +47,12 @@ class ConsolePortCommand extends ContainerAwareCommand
         while ($string = fgets(STDIN)) {
             try {
                 // extract name and parameters
-                $string = rtrim($string, "\r\n");
+                $string = trim(rtrim($string, "\r\n"));
                 $parameters = explode(' ', $string);
                 $name = array_shift($parameters);
 
                 // execute command
-                if ($name == self::EXIT_COMMAND) {
+                if ($this->isServiceCommand($name)) {
                     if ($this->getPortCommandRegistry()->hasPortCommand($name)) {
                         $result = $this->executePortCommand($name, $parameters);
                     } else {
@@ -95,5 +101,14 @@ class ConsolePortCommand extends ContainerAwareCommand
         }
 
         return $this->portCommandRegistry;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    protected function isServiceCommand($name)
+    {
+        return in_array($name, $this->serviceCommands);
     }
 }

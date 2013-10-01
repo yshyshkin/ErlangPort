@@ -6,10 +6,8 @@ abstract class AbstractPortCommand implements PortCommandInterface
 {
     /**
      * Method name that will receive parameters and process command
-     *
-     * @var string
      */
-    protected $callbackFunction = 'processCommand';
+    const CALLBACK_METHOD = 'processCommand';
 
     /**
      * Transfer control to method with signature that depends on number of argument of specific command
@@ -18,6 +16,6 @@ abstract class AbstractPortCommand implements PortCommandInterface
      */
     public function execute(array $parameters)
     {
-        return call_user_func_array(array($this, $this->callbackFunction), $parameters);
+        return call_user_func_array(array($this, static::CALLBACK_METHOD), $parameters);
     }
 }

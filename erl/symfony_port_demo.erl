@@ -1,10 +1,10 @@
-% module name
+% Module name
 -module(symfony_port_demo).
 
-% exported functions
+% Exported functions
 -export([execute/2, execute/1]).
 
-% execute one command with specified parameters, sleep is used to prevent multiple initialization
+% Execute one command with specified parameters, sleep is used to prevent multiple initialization
 % @param string Name
 % @param string Parameters
 execute(Name, Parameters) ->
@@ -15,7 +15,7 @@ execute(Name, Parameters) ->
     timer:sleep(10),
     symfony_port:close(Process).
 
-% shorter form of execute/2
+% Shorter form of execute/2
 % @param string Name
 execute(Name) ->
     execute(Name, []).

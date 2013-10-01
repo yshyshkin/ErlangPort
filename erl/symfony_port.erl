@@ -1,25 +1,28 @@
-% module name
+% Module name
 -module(symfony_port).
 
-% exported functions
+% Exported functions
 -export([open/0, close/1, execute_command/3, execute_command/2]).
 -export([init/1]). % internal function, should not be executed externally
 
-% configuration and interfaces
+% Configuration and interfaces
 -include("symfony_port_config.hrl").
 -include("symfony_port_interface.hrl").
 
-% init process with open port command
+% Init process with open port command
 % @return process
 open() ->
-    spawn(?MODULE, init, [?PORT_COMMAND]).
+    Process = spawn(?MODULE, init, [?PORT_CLI_COMMAND]),
+    execute_command(Process, ?INIT_COMMAND),
+    Process.
 
-% stop dispatching
+% Stop dispatching
 % @param Process Process
 close(Process) ->
-   Process ! stop.
+    execute_command(Process, ?EXIT_COMMAND),
+    Process ! stop.
 
-% execute command on port
+% Execute command on port
 % @param process Process
 % @param string Name
 % @param list Parameters
@@ -48,14 +51,14 @@ execute_command(Process, Name, Parameters) ->
         exit(port_not_responding)
     end.
 
-% shorter form of execute_command/3
+% Shorter form of execute_command/3
 % @param process Process
 % @param string Name
 % @param list Parameters
 execute_command(Process, Name) ->
     execute_command(Process, Name, []).
 
-% init port with specified CLI command
+% Init port with specified CLI command
 % @param string PortCommand
 % @return process
 init(PortCommand) ->
@@ -63,7 +66,7 @@ init(PortCommand) ->
     Port = open_port({spawn, PortCommand}, [stream, exit_status]),
     dispatch(self(), Port).
 
-% dispatch requests and responses
+% Dispatch requests and responses
 % @param process Process
 % @param process Port
 % @exit normal
