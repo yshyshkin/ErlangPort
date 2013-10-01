@@ -5,6 +5,15 @@ This bundle provides functionality to allow interaction between Erlang programs 
 using Erlang ports. Bundle has library of functions to work with port from the Erlang side and CLI command
 and port command registry to work with registered port commands from the Symfony side.
 
+* [Installation](#installation)
+* [Erlang side](#erlang-side)
+* [Symfony side](#symfony-side)
+* [Example of usage](#example-of-usage)
+
+Installation
+------------
+
+
 Erlang side
 -----------
 
@@ -113,8 +122,6 @@ Lets compile libraries `symfony_port` and `symfony_port_demo`:
 
 ```
 login@host:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
-Erlang R16B02 (erts-5.10.3) [source-b44b726] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
-
 Eshell V5.10.3  (abort with ^G)
 1> c(symfony_port).
 {ok,symfony_port}
@@ -131,8 +138,6 @@ executes a command _Name_ with _Parameters_ and closes port. Let's do it:
 
 ```
 maniac@here:/opt/www/symfony/src/YsTools/ErlangPortBundle/erl$ erl
-Erlang R16B02 (erts-5.10.3) [source-b44b726] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
-
 Eshell V5.10.3  (abort with ^G)
 1> symfony_port_demo:execute("calculate_sha1", ["qwerty"]).
 b1b3773a05c0ed0176787a4f1574ff0075f7521e
