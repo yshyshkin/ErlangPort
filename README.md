@@ -88,7 +88,7 @@ class Sha1Calculator extends AbstractPortCommand
 }
 ```
 
-_ProcessCommand_ is a default function name used to execute command. If you want to change it you should to
+Here _processCommand_ is a default function name used to execute command. If you want to change it you should to
 override constant CALLBACK_METHOD.
 
 #### 2. Register port command as DI service with tag
