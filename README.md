@@ -94,7 +94,7 @@ override constant CALLBACK_METHOD.
 #### 2. Register port command as DI service with tag
 
 Now we need to tell that this class should be used as Erlang port command. To do that we need to register it
-as a service with specific tag:
+as a service with specific tag, alias will be used as a command name:
 
 ```
 parameters:
